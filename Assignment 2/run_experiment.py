@@ -1,6 +1,7 @@
 import argparse
 import gymnasium as gym
 import importlib.util
+import numpy as np
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent.py")
@@ -34,14 +35,16 @@ state_dim = env.observation_space.n
 agent = agentfile.Agent(state_dim, action_dim)
 
 observation = env.reset()
-for _ in range(10): 
+for _ in range(100000): 
     #env.render()
-    action = agent.act(observation) # your agent here (this currently takes random actions)
+    action = agent.act(observation) # your agent here (this currently takes random actions) (can be chosen as an argument when calling from terminal, for example python run_experiment.py --agentfile q_agent.py)
     observation, reward, done, truncated, info = env.step(action)
     rewards.append(reward)
     agent.observe(observation, reward, done)
-    
+
     if done:
         observation, info = env.reset() 
 
+np.set_printoptions(formatter={'float_kind':"{:.2f}".format}) #just formatting the output
+print(agent.Q) #Checking that the result is not completely absurd
 env.close()
