@@ -4,15 +4,13 @@ import importlib.util
 import numpy as np
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--agentfile", type=str, help="file with Agent object", default="agent.py")
+parser.add_argument("--agentfile", type=str, help="file with Agent object", default="q_agent.py")
 parser.add_argument("--env", type=str, help="Environment", default="FrozenLake-v1")
 args = parser.parse_args()
 
 spec = importlib.util.spec_from_file_location('Agent', args.agentfile)
 agentfile = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(agentfile)
-
-
 
 
 try:
@@ -48,3 +46,79 @@ for _ in range(100000):
 np.set_printoptions(formatter={'float_kind':"{:.2f}".format}) #just formatting the output
 print(agent.Q) #Checking that the result is not completely absurd
 env.close()
+
+import matplotlib.pyplot as plt
+def lake_Q(Q):
+    col=[]
+    for i in range(4):
+        col.append("col"+str(i))
+    row=[]
+    for i in range(4):
+        row.append("row"+str(i))
+
+    cell_text = []
+    tmp = 0
+    for i in range(4):
+        cell_i = []
+        for j in range(4):
+            state = Q[tmp]
+            action = np.argmax(state)
+            if state[action] == 0:
+                cell_i.append("obstacle")
+            else:
+                if action == 0:
+                    cell_i.append("left")
+                if action == 1:
+                    cell_i.append("down")
+                if action == 2:
+                    cell_i.append("right")
+                if action == 3:
+                    cell_i.append("up")
+            tmp += 1
+        cell_text.append(cell_i)
+    cell_text[-1][-1] = 'end'
+    plt.table(cellText=cell_text, 
+              colLabels=col, 
+                rowLabels=row,
+              loc='center', 
+              cellLoc='center',
+              rowLoc='center')
+    plt.axis('off')
+    plt.show()
+lake_Q(agent.Q)
+    #Action Space 0: LEFT 1: DOWN 2: RIGHT 3: UP
+
+
+#not sure about this
+# def river_Q(Q):
+#     col=[]
+#     for i in range(6):
+#         col.append("col"+str(i))
+#     row=[]
+#     for i in range(1):
+#         row.append("row"+str(i))
+#     cell_text = []
+#     tmp = 0
+#     for i in range(1):
+#         cell_i = []
+#         for j in range(6):
+#             state = Q[tmp]
+#             action = np.argmax(state)
+#             if action == 0:
+#                 cell_i.append("left")
+#             if action == 1:
+#                 cell_i.append("right")
+#             tmp += 1
+#         cell_text.append(cell_i)
+#     cell_text[0][0] = 'small'
+#     cell_text[0][-1] = 'large'
+#     plt.table(cellText=cell_text, 
+#               colLabels=col, 
+#                 rowLabels=row,
+#               loc='center', 
+#               cellLoc='center',
+#               rowLoc='center')
+#     plt.axis('off')
+#     plt.show()
+# river_Q(agent.Q)
+#only for junyu: C:/Users/Dreamsong/anaconda3/python.exe "c:/Users/Dreamsong/Desktop/advanced_ml_assignment-main/DAT440-Assignments/Assignment 2/run_experiment.py" --agentfile "c:/Users/Dreamsong/Desktop/advanced_ml_assignment-main/DAT440-Assignments/Assignment 2/q_agent.py" 
