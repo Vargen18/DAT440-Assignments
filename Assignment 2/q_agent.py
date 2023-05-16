@@ -1,7 +1,7 @@
 import numpy as np
 
 class Agent(object): #Q-learning agent
-    def __init__(self, state_space, action_space, alpha=0.7, epsilon=0.05, gamma=0.95):
+    def __init__(self, state_space, action_space, alpha=0.3, epsilon=0.05, gamma=0.95):
         self.action_space = action_space
         self.state_space = state_space
         self.Q = np.zeros([state_space, action_space])
@@ -18,7 +18,7 @@ class Agent(object): #Q-learning agent
             self.Q[self.state,self.action] = self.Q[self.state,self.action] + self.alpha*(reward + self.gamma*np.max(self.Q[observation,:])- self.Q[self.state,self.action])
 
     def act(self, observation):
-        if type(observation) != int: #for some reason, first state is returned as (0, {'prob': 1}), so we must take the first value in the tuple
+        if type(observation) != int and type(observation) != np.int32: #for some reason, first state is returned as (0, {'prob': 1}), so we must take the first value in the tuple. RiverSwim uses np.int32 instead of int, hence the and. 
             self.state = observation[0]
         else: 
             self.state = observation

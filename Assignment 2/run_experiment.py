@@ -85,7 +85,7 @@ def lake_Q(Q):
               rowLoc='center')
     plt.axis('off')
     plt.show()
-lake_Q(agent.Q)
+#lake_Q(agent.Q)
     #Action Space 0: LEFT 1: DOWN 2: RIGHT 3: UP
 
 
