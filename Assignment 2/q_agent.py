@@ -30,3 +30,6 @@ class Agent(object): #Q-learning agent
             self.action = np.random.choice(np.flatnonzero(self.Q[self.state,:] == self.Q[self.state,:].max())) #greedy action, break ties randomly
         
         return self.action
+
+    def get_Q(self):
+        return self.Q

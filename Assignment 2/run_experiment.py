@@ -44,7 +44,7 @@ for _ in range(100000):
         observation, info = env.reset() 
 
 np.set_printoptions(formatter={'float_kind':"{:.2f}".format}) #just formatting the output
-print(agent.Q) #Checking that the result is not completely absurd
+print(agent.get_Q()) #Checking that the result is not completely absurd
 env.close()
 
 import matplotlib.pyplot as plt
