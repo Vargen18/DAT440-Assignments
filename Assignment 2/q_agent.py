@@ -1,7 +1,7 @@
 import numpy as np
 
 class Agent(object): #Q-learning agent
-    def __init__(self, state_space, action_space, alpha=0.3, epsilon=0.05, gamma=0.95):
+    def __init__(self, state_space, action_space, alpha=0.1, epsilon=0.05, gamma=0.95):
         self.action_space = action_space
         self.state_space = state_space
         self.Q = np.zeros([state_space, action_space])
