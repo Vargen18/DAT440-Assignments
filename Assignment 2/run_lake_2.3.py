@@ -87,42 +87,6 @@ def lake_Q(Q): #Action Space 0: LEFT 1: DOWN 2: RIGHT 3: UP
     plt.show()
 
     
-
-
-#not sure about this
-# def river_Q(Q):
-#     col=[]
-#     for i in range(6):
-#         col.append("col"+str(i))
-#     row=[]
-#     for i in range(1):
-#         row.append("row"+str(i))
-#     cell_text = []
-#     tmp = 0
-#     for i in range(1):
-#         cell_i = []
-#         for j in range(6):
-#             state = Q[tmp]
-#             action = np.argmax(state)
-#             if action == 0:
-#                 cell_i.append("left")
-#             if action == 1:
-#                 cell_i.append("right")
-#             tmp += 1
-#         cell_text.append(cell_i)
-#     cell_text[0][0] = 'small'
-#     cell_text[0][-1] = 'large'
-#     plt.table(cellText=cell_text, 
-#               colLabels=col, 
-#                 rowLabels=row,
-#               loc='center', 
-#               cellLoc='center',
-#               rowLoc='center')
-#     plt.axis('off')
-#     plt.show()
-# river_Q(agent.Q)
-#only for junyu: C:/Users/Dreamsong/anaconda3/python.exe "c:/Users/Dreamsong/Desktop/advanced_ml_assignment-main/DAT440-Assignments/Assignment 2/run_experiment.py" --agentfile "c:/Users/Dreamsong/Desktop/advanced_ml_assignment-main/DAT440-Assignments/Assignment 2/q_agent.py" 
-
 def lake_heatmaps(Q): #Generates one heatmap for each action for the frozen lake environment. The first heatmap shows value of taking left action for each cell, the second heatmap shows down, then right, finally up. 
     if(Q.shape != (16,4)):
         print("Wrong dimensions of  Q-table! Did you run the correct environment?")
