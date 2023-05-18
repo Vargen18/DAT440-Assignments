@@ -4,6 +4,7 @@ class Agent(object): #Q-learning agent
     def __init__(self, state_space, action_space, alpha=0.3, epsilon=0.05, gamma=0.95):
         self.action_space = action_space
         self.state_space = state_space
+        self.Q = np.zeros([state_space, action_space])
         self.QA = np.zeros([state_space, action_space])
         self.QB = np.zeros([state_space, action_space])
         self.alpha = alpha
@@ -25,7 +26,8 @@ class Agent(object): #Q-learning agent
             else:
                 b = np.argmax(self.QB[observation,:])
                 self.QB[self.state,self.action] = self.QB[self.state,self.action] + self.alpha*(reward + self.gamma*self.QA[observation,b]- self.QB[self.state,self.action])
-       
+        self.Q = (self.QA + self.QB) / 2
+
     def act(self, observation):
         if type(observation) != int and type(observation) != np.int32: #for some reason, first state is returned as (0, {'prob': 1}), so we must take the first value in the tuple. RiverSwim uses np.int32 instead of int, hence the and. 
             self.state = observation[0]
@@ -36,8 +38,7 @@ class Agent(object): #Q-learning agent
             self.action = np.random.randint(self.action_space) #random action
             
         else:
-            avg_Q = (self.QA + self.QB) / 2
-            self.action = np.random.choice(np.flatnonzero(avg_Q[self.state,:] == avg_Q[self.state,:].max())) #greedy action, break ties randomly
+            self.action = np.random.choice(np.flatnonzero(self.Q[self.state,:] == self.Q[self.state,:].max())) #greedy action, break ties randomly
         
         return self.action
     
