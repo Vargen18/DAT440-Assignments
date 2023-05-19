@@ -12,15 +12,23 @@ class Agent(object): #Q-learning agent
         self.action = None
 
     def observe(self, observation, reward, done):
+
         if done:
             self.Q[self.state,self.action] = self.Q[self.state,self.action] + self.alpha*(reward - self.Q[self.state,self.action]) #Ignore future reward, since there is no future
         else:
-            action = self.act(observation)
+            if type(observation) != int and type(observation) != np.int32: #for some reason, first state is returned as (0, {'prob': 1}), so we must take the first value in the tuple. RiverSwim uses np.int32 instead of int, hence the and. 
+                tmp_state = observation[0]
+            else: 
+                tmp_state = observation
+            tmp_action = np.random.randint(self.action_space) #random action
+            if np.random.uniform() > self.epsilon:
+                tmp_action = np.random.choice(np.where(self.Q[self.state,:] == self.Q[self.state,:].max())[0]) #greedy action, break ties randomly
+        
             E = 0
-            E += (1 - self.epsilon)*self.Q[observation,action]
-            num = np.sum(self.Q[observation,:] < np.max(self.Q[observation,:]))
-            for Q in self.Q[observation,:]:
-                if Q < self.Q[observation,action]:
+            E += (1 - self.epsilon)*self.Q[tmp_state,tmp_action]
+            num = np.sum(self.Q[tmp_state,:] < np.max(self.Q[tmp_state,:]))
+            for Q in self.Q[tmp_state,:]:
+                if Q < self.Q[tmp_state,tmp_action]:
                     E += self.epsilon/num*Q
             self.Q[self.state,self.action] = self.Q[self.state,self.action] + self.alpha*(reward + self.gamma*E- self.Q[self.state,self.action])
 
@@ -34,8 +42,7 @@ class Agent(object): #Q-learning agent
             self.action = np.random.randint(self.action_space) #random action
             
         else: 
-            self.action = np.random.choice(np.flatnonzero(self.Q[self.state,:] == self.Q[self.state,:].max())) #greedy action, break ties randomly
-        
+            self.action = np.random.choice(np.where(self.Q[self.state,:] == self.Q[self.state,:].max())[0]) #greedy action, break ties randomly
         return self.action
 
     def get_Q(self):

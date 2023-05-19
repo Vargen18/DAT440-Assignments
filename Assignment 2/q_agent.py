@@ -27,7 +27,7 @@ class Agent(object): #Q-learning agent
             self.action = np.random.randint(self.action_space) #random action
             
         else: 
-            self.action = np.random.choice(np.flatnonzero(self.Q[self.state,:] == self.Q[self.state,:].max())) #greedy action, break ties randomly
+            self.action = np.random.choice(np.where(self.Q[self.state,:] == self.Q[self.state,:].max())[0]) #greedy action, break ties randomly
         
         return self.action
 
