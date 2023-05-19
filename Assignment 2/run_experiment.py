@@ -124,9 +124,6 @@ def lake_Q(Q): #Action Space 0: LEFT 1: DOWN 2: RIGHT 3: UP
 #only for junyu: C:/Users/Dreamsong/anaconda3/python.exe "c:/Users/Dreamsong/Desktop/advanced_ml_assignment-main/DAT440-Assignments/Assignment 2/run_experiment.py" --agentfile "c:/Users/Dreamsong/Desktop/advanced_ml_assignment-main/DAT440-Assignments/Assignment 2/q_agent.py" 
 
 def lake_heatmaps(Q): #Generates one heatmap for each action for the frozen lake environment. The first heatmap shows value of taking left action for each cell, the second heatmap shows down, then right, finally up. 
-    if(Q.shape != (16,4)):
-        print("Wrong dimensions of  Q-table! Did you run the correct environment?")
-        return None
     fig, axes = plt.subplots(2, 2)
     for i in range(len(Q[0])):
         sublist = list(x[i] for x in Q)
@@ -139,8 +136,23 @@ def lake_heatmaps(Q): #Generates one heatmap for each action for the frozen lake
     axes[1,1].set_title("Up")
     plt.show()
 
+def river_heatmap(Q): #Generates one heatmap for each action for the riverswim environment. The first heatmap shows value of taking left action for each cell, the second heatmap shows right. 
+    fig, axes = plt.subplots(2, 1)
+    for i in range(len(Q[0])):
+        sublist = list(x[i] for x in Q)
+        actions_as_matrix = np.reshape(sublist, [1, 6])
+        sns.set()
+        sns.heatmap(actions_as_matrix, vmin=np.min(Q), vmax=np.max(Q), ax=axes[i], annot=True) #Use min/max of the whole table as anchor for every heatmap, to make comparisons between them easier
+    axes[0].set_title("Left")
+    axes[1].set_title("Right")
+    plt.show()
 
+def heatmap(Q): #Helper, calls correct function
+    if(Q.shape == (16,4)):
+        lake_heatmaps(Q)
+    else:
+        river_heatmap(Q)
+        
 #np.set_printoptions(formatter={'float_kind':"{:.2f}".format}) #just formatting the output
 #print(agent.get_Q()) #Checking that the result is not completely absurd
-#lake_Q(agent.Q)
-#lake_heatmaps(agent.get_Q())
+#heatmap(agent.get_Q())
