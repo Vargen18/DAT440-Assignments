@@ -1,0 +1,12 @@
+Eval num_timesteps=25000, episode_reward=-0.01 +/- 0.00
+Eval num_timesteps=50000, episode_reward=-8.24 +/- 0.14
+Eval num_timesteps=75000, episode_reward=89.25 +/- 0.26
+Eval num_timesteps=100000, episode_reward=93.34 +/- 0.03
+Eval num_timesteps=125000, episode_reward=93.40 +/- 0.07
+Eval num_timesteps=150000, episode_reward=93.79 +/- 0.15
+Eval num_timesteps=175000, episode_reward=93.89 +/- 0.06
+Eval num_timesteps=200000, episode_reward=93.72 +/- 0.13
+Eval num_timesteps=225000, episode_reward=93.65 +/- 0.14
+Eval num_timesteps=250000, episode_reward=93.78 +/- 0.09
+Eval num_timesteps=275000, episode_reward=93.67 +/- 0.05
+Eval num_timesteps=300000, episode_reward=93.75 +/- 0.03

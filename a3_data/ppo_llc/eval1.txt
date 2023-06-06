@@ -1,0 +1,39 @@
+Loading latest experiment, id=7
+Loading logs/ppo/LunarLanderContinuous-v2_7/LunarLanderContinuous-v2.zip
+Episode Reward: 293.67
+Episode Length 292
+Episode Reward: 277.97
+Episode Length 281
+Episode Reward: 283.36
+Episode Length 277
+Episode Reward: 240.08
+Episode Length 288
+Episode Reward: 289.69
+Episode Length 288
+Episode Reward: 243.68
+Episode Length 292
+Episode Reward: 269.87
+Episode Length 272
+Episode Reward: 287.23
+Episode Length 287
+Episode Reward: 295.16
+Episode Length 302
+Episode Reward: 243.42
+Episode Length 287
+Episode Reward: 289.22
+Episode Length 282
+Episode Reward: 262.64
+Episode Length 310
+Episode Reward: 257.70
+Episode Length 284
+Episode Reward: 301.45
+Episode Length 301
+Episode Reward: 274.66
+Episode Length 297
+Episode Reward: 264.21
+Episode Length 281
+Episode Reward: 285.65
+Episode Length 288
+17 Episodes
+Mean reward: 274.10 +/- 18.78
+Mean episode length: 288.76 +/- 9.33
